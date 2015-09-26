@@ -14,6 +14,13 @@ local.properties
 .settings/
 .loadpath
 
+## spider ##
+*.lnk
+tests/
+test.jsx
+test7.cmd
+test8.cmd
+
 # Eclipse Core
 .project
 

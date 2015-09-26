@@ -65,6 +65,7 @@ loadjar("spider.lib/spider-jrt.jar");
 	} else{
 		outln("error!");
 	}
-	//report.engine = spider.x.common.anonymous_engine;
-	report.engine = spider.x.builtins.create_new_engine();
+//	report.engine = spider.x.builtins.create_new_engine();
+	report.engine =  new javax.script.ScriptEngineManager(null).getEngineByName(spider.x.config.engine_js_name);
+
 	
