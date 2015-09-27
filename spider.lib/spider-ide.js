@@ -27,6 +27,8 @@ if(spider.x.config.enable_ide==true){
 		_mgui.codeEditor = redit;
 		_mgui.scrl_Code = rscr;	
 	
+	outln('Load spider-ide-code-assist.js'); include("spider.lib/spider-ide-code-assist.js");
+	auto_code_install(redit);
 	
 	//set clear function
 	var __ide_console;

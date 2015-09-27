@@ -4,6 +4,10 @@ Copyright (c) 2012, Robert Futrell
 license: licenses/RSyntaxTextArea.License.txt
 src: https://github.com/bobbylight/RSyntaxTextArea
 
+2. AutoComplete
+Copyright (c) 2012, Robert Futrell
+license: licenses/AutoComplete.License.txt
+src: https://github.com/bobbylight/AutoComplete
 
 
 Installation guide:
