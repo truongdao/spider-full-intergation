@@ -26,18 +26,19 @@ loadjar("spider.lib/auto-complete-code/auto-complete-code.jar");
 }
 
 function ide_add_completion_keys(skeys){
-	if(nashorn){
-		var BasicCompletion = Java.type("org.fife.ui.autocomplete.BasicCompletion");
-	} else{
-		importClass(Packages.org.fife.ui.autocomplete.BasicCompletion);
-	}
 	
 	//1. init js key words set
 	for( var i in skeys){
-		__ide_code_complete__.addCompletion(new BasicCompletion(
-			__ide_code_complete__, 
-			skeys[i])
-		);
+	
+		var bcompl;
+		if(nashorn){
+			var BasicCompletion = Java.type("org.fife.ui.autocomplete.BasicCompletion");
+			bcompl = new BasicCompletion(__ide_code_complete__, skeys[i]);
+		} else{
+			//importClass(Packages.org.fife.ui.autocomplete.BasicCompletion);
+			bcompl = new Packages.org.fife.ui.autocomplete.BasicCompletion(__ide_code_complete__, skeys[i]);
+		}
+		__ide_code_complete__.addCompletion(bcompl);
 	}
 }
 

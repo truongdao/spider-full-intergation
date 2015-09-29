@@ -16,7 +16,8 @@ outln('Load forms.js'); include('spider.lib/forms.js');
 outln('Load excel.js'); include('spider.lib/excel.js');
 outln('Load file.js'); include('spider.lib/file.js');
 outln('Load autokey.js'); include('spider.lib/autokey.js');
-outln('Load heredoc-russian.js'); include('spider.lib/heredoc-russian.js');
+if(nashorn)
+outln('Load heredoc-ferrero.js'); include('spider.lib/heredoc-ferrero.js');
 
 outln('----------------------------------\n');
 
