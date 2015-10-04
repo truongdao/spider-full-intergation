@@ -240,7 +240,7 @@ dir.find = function(path, patt, mode){
 		stack.push(fld);
 		while(stack.length > 0){
 			var child = stack.pop();
-			var childf = new File(child);
+			var childf = new java.io.File(child);
 			
 			var	st = (dir.path_mode == "full")? childf.getCanonicalPath() : 
 					(dir.path_mode == "relative")? childf.getPath() : 
