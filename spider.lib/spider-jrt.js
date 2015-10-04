@@ -65,7 +65,28 @@ loadjar("spider.lib/spider-jrt.jar");
 	} else{
 		outln("error!");
 	}
-//	report.engine = spider.x.builtins.create_new_engine();
 	report.engine =  new javax.script.ScriptEngineManager(null).getEngineByName(spider.x.config.engine_js_name);
 
+/******************************************************************************
+* help
+*/
+if(typeof ide_add_completion_enhanced == 'function'){
+
+	var help_spider_jreport= [
+		['report-executeJRT(path, json_var) :String', 'report.executeJRT(', 
+						'produce report page from jsp template file path and input data json'
+						],			
+		['report-getReport(s_template, json) :String', 'report.getReport(', 
+						'produce report page from jsp template string and input data json'
+						],		
+		['report-getReport(engine, s_template, json) :String', 'report.getReport(', 
+						'produce report page from jsp template string and input data json, engine: specific engine to run the report processor'
+						],	
+		['report-toCode(s_template) :String', 'report.toCode(', 
+						'compile jsp template string into executable js code'
+						]							
+	];
+	
+	ide_add_completion_enhanced(help_spider_jreport);
+}
 	
