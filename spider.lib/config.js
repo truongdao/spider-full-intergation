@@ -1,4 +1,4 @@
-/*spider.x.constant.enable_ide=true*/ /*DON'T SET FOR ANY OTHER LINES*/
+/*spider.x.config.enable_ide=true*/ /*DON'T SET FOR ANY OTHER LINES*/
 	var nashorn = false;
 	if(spider.x.config.engine_js_name == "Nashorn"){
 		load("nashorn:mozilla_compat.js");
