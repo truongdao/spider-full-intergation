@@ -17,15 +17,11 @@ loadjar("spider.lib/auto-complete-code/auto-complete-code.jar");
 	cauto.install(redit);
 	
 	//
-	ide_add_completion_keys(js_resv_keys);
-	ide_add_completion_keys(spider_builtins_stuffs);
-	ide_add_completion_keys(spider_form_stuffs);
-	ide_add_completion_keys(spider_file_stuffs);
-	ide_add_completion_keys(spider_heredoc_stuffs);
-	ide_add_completion_keys(spider_global_vars_stuffs);
+	ide_add_completion_enhanced(help_spider_builtins);
+	ide_add_completion_enhanced(help_spider_global_vars);
 }
 
-function ide_add_completion_keys(skeys){
+function ide_add_completion_basic(skeys){
 	
 	//1. init js key words set
 	for( var i in skeys){
@@ -36,83 +32,81 @@ function ide_add_completion_keys(skeys){
 			bcompl = new BasicCompletion(__ide_code_complete__, skeys[i]);
 		} else{
 			//importClass(Packages.org.fife.ui.autocomplete.BasicCompletion);
-			bcompl = new Packages.org.fife.ui.autocomplete.BasicCompletion(__ide_code_complete__, skeys[i]);
+			bcompl = new Packages.org.fife.ui.autocomplete.BasicCompletion(
+								__ide_code_complete__, 
+								skeys[i]);
 		}
 		__ide_code_complete__.addCompletion(bcompl);
 	}
 }
 
-var spider_builtins_stuffs = [
-	'loadjar(jar_url)',
-	'include(js_url)',
-	'out(msg)',
-	'outln(msg)',
-	'clear()',
-	'input(title, ivalue)',
-	'exit()'
+
+function ide_add_completion_enhanced(skeys){
+	
+	//1. init js key words set
+	for( var i in skeys){
+	
+		var bcompl;
+		if(nashorn){
+			var ShorthandCompletion = Java.type("org.fife.ui.autocomplete.ShorthandCompletion");
+			bcompl = new ShorthandCompletion(__ide_code_complete__, 
+											skeys[i][0],
+											skeys[i][1],
+											skeys[i][2]);
+		} else{
+			bcompl = new Packages.org.fife.ui.autocomplete.ShorthandCompletion(
+											__ide_code_complete__, 
+											skeys[i][0],
+											skeys[i][1],
+											skeys[i][2]);
+		}
+		__ide_code_complete__.addCompletion(bcompl);
+	}
+}
+
+var help_spider_builtins = [
+
+	['loadjar(jar_url)', 'loadjar(', 
+						'load jar lib from system'
+						],
+	['include(js_url)','include(', 
+						'execute external js file'
+						],
+	['out(msg)','out(', 
+						'print msg to console/ide'
+						],
+	['outln(msg)','outln(', 
+						'print msg to new line of console\ide'
+						],
+	['clear()','clear();', 
+						'clear output console of ide'
+						],
+	['input(title, ivalue)','input(', 
+						'show prompt to get input string'
+						],
+	['exit()', 'exit();', 
+						'exit program'
+						]
 ];
 
-var spider_global_vars_stuffs = [
+var help_spider_global_vars = [
 
-'spider.',
-'spider.x.',
-'spider.x.config.',
-'spider.x.common.',
-'spider.x.constant.',
-
-];
-
-var spider_form_stuffs= [
-	'Form(ls_items)',
-	'append(item)',
-	'show()',
-	'hide()'
-];
-
-var spider_file_stuffs = [
-	'dir.',
-	'dir.newf(path)',
-	'dir.newd(path)',
-	'dir.copyf(src, dest)',
-	'dir.movef(src, dest)',
-	'dir.writef(path2open) -PrintWriter',
-	'dir.readf(path2open) -PrintReader',
-	'dir.ls( path , regex, mode) ',
-	'dir.lsa( path , regex) -list all',
-	'dir.lsf( path , regex) -search file',
-	'dir.lsd( path , regex) -search folder',
-	'dir.find( path , regex, mode) - find in subfolder',
-	'dir.fina( path , regex) - find all in subfolder',
-	'dir.findf( path , regex) - find file in subfolder',
-	'dir.findd( path , regex) - find folder in subfolder',
+	['spider_', 'spider.',
+						'root data'
+						],
+	['spider_x_','spider.x.',
+						'central program/ide data'
+						],
+	['spider_x_config_', 'spider.x.config.',
+						'program config bundle'
+						],
+	['spider_x_common_', 'spider.x.common.',
+						'program common data bundle'
+						],
+	['spider_x_constant_', 'spider.x.constant.',
+						'program constant bundle'
+						]
 ];
 
 
-var spider_heredoc_stuffs = [
-     'heredoc(function(){ /*',
-     '*/}); //end hdoc'
-];
 
-var js_resv_keys= [
-	//http://www.w3schools.com/js/js_reserved.asp
-	//JavaScript Reserved Words
-	"abstract",	"arguments",	"boolean",	"break",	"byte",
-	"case",	"catch",	"char",	"class*",	"const",
-	"continue",	"debugger",	"default",	"delete",	"do",
-	"double",	"else",	"enum*",	"eval",	"export",
-	"extends*",	"false",	"final",	"finally",	"float",
-	"for",	"function",	"goto",	"if",	"implements",
-	"import*",	"in",	"instanceof",	"int",	"interface",
-	"let",	"long",	"native",	"new",	"null",
-	"package",	"private",	"protected",	"public",	"return",
-	"short",	"static",	"super*",	"switch",	"synchronized",
-	"this",	"throw",	"throws",	"transient",	"true",
-	"try",	"typeof",	"var",	"void",	"volatile",
-	"while",	"with",	"yield",
-
-	//JavaScript Objects, Properties, and Methods
-	"Array",	"Date",	"eval",	"function",	"hasOwnProperty",
-	"Infinity",	"isFinite",	"isNaN",	"isPrototypeOf",	"length",
-	"Math",	"NaN",	"name",	"Number",	"Object",
-	"prototype",	"String",	"toString",	"undefined",	"valueOf"
-];

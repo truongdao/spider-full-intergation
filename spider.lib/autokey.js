@@ -63,5 +63,24 @@ var autokey = {
 			}
 };
 
+/******************************************************************************
+* help
+*/
+if(typeof ide_add_completion_enhanced == 'function'){
+
+	var help_autokey= [
+		['autokey_pk(char_k)', 'autokey.pk(', 
+						'press a key by it char presented'
+						],
+		['autokey_pks(s_string, i_dt)', 'autokey.pks(', 
+						'press out all chars in s_string after each i_dt time'
+						],
+		['autokey_pkx([i_kcode, i_dt]...)', 'autokey.pkx(', 
+						'press keys and put string sequence. ex: pkx(VK_WINDOWS, 500, "CMD", 500)'
+						]				
+	];
+	
+	ide_add_completion_enhanced(help_autokey);
+}
 
 

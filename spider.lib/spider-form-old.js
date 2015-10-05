@@ -225,3 +225,29 @@ function CheckBox(value){
 	};																	
 	return th;															
 }		
+
+/******************************************************************************
+* help
+*/
+if(typeof ide_add_completion_enhanced == 'function'){
+
+	var help_spider_form_old= [
+		['form_legacy_new(ls_items)', 'new Form(', 
+						'create new Form by legacy method'
+						],
+		['form_legacy_append(item)', '.append(',
+						'append new item to form of legacy'
+						],
+		['form_legacy_show()', '.show()',
+						'display form and block current script'
+						],
+		['form_legacy_hide()',	'.hide()',
+						'hide the form, currently not much meanings'
+						]
+	];
+	
+	ide_add_completion_enhanced(help_spider_form_old);
+}
+
+
+ 

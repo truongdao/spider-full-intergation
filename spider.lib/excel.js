@@ -3,8 +3,8 @@ loadjar("spider.lib/poi-ooxml-3.12-20150511.jar");
 loadjar("spider.lib/poi-ooxml-schemas-3.12-20150511.jar");
 loadjar("spider.lib/xmlbeans-2.6.0.jar");
 
-	importPackage(java.io);
-	importClass(Packages.org.apache.poi.ss.usermodel.WorkbookFactory)
+//	importPackage(java.io);
+//	importClass(Packages.org.apache.poi.ss.usermodel.WorkbookFactory)
 
 var Xls = {
 	path: ".",
@@ -253,4 +253,80 @@ Cell.empty = function(){
 		return true;
 	else
 		return false;
+}
+
+/******************************************************************************
+* help
+*/
+if(typeof ide_add_completion_enhanced == 'function'){
+
+	var help_spider_excel= [
+		['excel_open(s_path) :Book', 'Xls.open(', 
+					'open xls/xlsx file'
+					],
+		['excel_book_r : X_HSSFWorkbook', '.r.',
+					'real apache book object X_HSSFWorkbook'
+					],
+		['excel_book_sheets(): Sheet[]', '.sheets()',
+					'return all sheets of the book'
+					],
+		['excel_book_sheet(id/name) :Sheet'	,'.sheet(',
+					'get a Sheet by name/index'
+					],
+		['excel_book_cell(idsheet, i_row, i_col) :Cell', '.cell(',
+					'get a cell by sheet, row, column'
+					],
+		['excel_book_cells(idsheet) :Cell[]', '.cells(',
+					'get all cells in sheet by sheet index/name'
+					],
+		['excel_book_save()', '.save();', 
+					'save the workbook'
+					],
+		['excel_book_saveAs(s_path)', '.saveAs(', 
+					'save the workbook as new file at s_path'
+					],
+		//
+		['excel_sheet_r : X_HSSFSheet', '.r.',
+					'real apache sheet object X_HSSFSheet'
+					],
+		['excel_sheet_cell(i_row, i_col) :Cell', '.cell(',
+					'get a cell by row, column'
+					],
+		['excel_sheet_cells() :Cell[]', '.cells(',
+					'get all cells in sheet'
+					],
+		['excel_sheet_left(i_step) :Sheet', '.left(', 
+					'return sheet on the left of this sheet within i_step, null if nothing'
+					],
+		['excel_sheet_right(i_step) :Sheet', '.right(', 
+					'return sheet on the right of this sheet within i_step, null if nothing'
+					],	
+		['excel_sheet_value :String', '.value', 
+					'get/set sheet name'
+					],
+		//
+		['excel_cell_r : X_HSSFCell', '.r.',
+					'real apache cell object X_HSSFCell'
+					],
+		['excel_cell_left(i_step) :Cell', '.left(', 
+					'return cell on the left of this cell within i_step, null if nothing'
+					],
+		['excel_cell_right(i_step) :Cell', '.right(', 
+					'return cell on the right of this cell within i_step, null if nothing'
+					],	
+		['excel_cell_up(i_step) :Cell', '.left(', 
+					'return cell above of this cell within i_step, null if nothing'
+					],
+		['excel_cell_down(i_step) :Cell', '.right(', 
+					'return cell below of this cell within i_step, null if nothing'
+					],						
+		['excel_cell_value :String', '.value', 
+					'get/set cell value as string'
+					],	
+		['excel_cell_empty() :boolean', '.empty()', 
+					'return true if real cell is null or have no content'
+					],	
+	];
+	
+	ide_add_completion_enhanced(help_spider_excel);
 }

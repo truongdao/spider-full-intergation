@@ -240,7 +240,7 @@ dir.find = function(path, patt, mode){
 		stack.push(fld);
 		while(stack.length > 0){
 			var child = stack.pop();
-			var childf = new File(child);
+			var childf = new java.io.File(child);
 			
 			var	st = (dir.path_mode == "full")? childf.getCanonicalPath() : 
 					(dir.path_mode == "relative")? childf.getPath() : 
@@ -310,5 +310,60 @@ dir.findd = function(path, patt){
 };	
 
 ///////////////////////////////////////////////////////////////////////////////
+
+/******************************************************************************
+* help
+*/
+if(typeof ide_add_completion_enhanced == 'function'){
+
+	var help_spider_file = [
+		['dir_','dir.',
+				'static object providing working functions with file'
+				],
+		['dir_newf(s_path) :File', 'dir.newf(',
+				'create new File with path name'
+				],
+		['dir_newd(s_path) :File', 'dir.newd(path)',
+				'create new Folder with path name'
+				],
+		['dir_copyf(from, to)', 'dir.copyf(',
+				'copy file from A to B'
+				],
+		['dir_movef(from, to)', 'dir.movef(',
+				'move file from A to B'
+				],
+		['dir_writef(s_wpath) :PrintWriter', 'dir.writef(',
+				'open a file to write as output stream'
+				],
+		['dir_readf(s_rpath) : PrintReader', 'dir.readf(',
+				'open a file to read as input stream'
+				],
+		['dir_ls( path , regex, mode) :String[]', 'dir.ls(',
+				'list file in a path(no sub), regex: filter string, mode: {all, directory} inclusion'
+				],
+		['dir_lsa(path , regex): String[]', 'dir.lsa(',
+				'list all file/folder in path (no sub)'
+				],
+		['dir_lsf( path , regex) :String[]', 'dir.lsf(',
+				'list all file in path (no sub)'
+				],
+		['dir_lsd( path , regex) :String[]', 'dir.lsd(',
+				'list all folder in path(no sub)'
+				],
+		['dir_find(path , regex, mode) :String[]', 'dir.find(',
+				'find st in path (inc. sub)'
+				],
+		['dir_finda( path , regex) :String[]', 'dir.finda(',
+				'find all in path (inc. sub)'
+				],
+		['dir_findf( path , regex) :String[]','dir_findf',
+				'find file in path (inc. sub)'
+				],
+		['dir_findd( path , regex) :String[]', 'dir.finda',
+				'find folder in path (inc. sub)'
+				]
+	];	
+	ide_add_completion_enhanced(help_spider_file);
+}
 
 

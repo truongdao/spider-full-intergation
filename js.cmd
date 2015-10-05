@@ -1,3 +1,4 @@
-mode con: cols=80 lines=15
+::mode con: cols=80 lines=15
 @echo run bat
-java -jar spider2v.jar %1 -paths="<path to this folder>"
+set spider_home="<path to this folder>"
+java -jar %spider_home%\spider2v.jar %1 -paths=%spider_home%
