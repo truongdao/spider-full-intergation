@@ -20,6 +20,7 @@ tests/
 test.jsx
 test7.cmd
 test8.cmd
+js7.cmd
 
 # Eclipse Core
 .project
