@@ -70,8 +70,8 @@ Xls.open = function(file_path){
 	var new_book = Object.create(Book);
 	new_book.parent = this;
 	
-	var fis = new FileInputStream(file_path);
-	new_book.r = WorkbookFactory.create(fis);
+	var fis = new java.io.FileInputStream(file_path);
+	new_book.r =Packages.org.apache.poi.ss.usermodel.WorkbookFactory.create(fis);
 	fis.close();
 	return new_book;
 };
@@ -79,13 +79,13 @@ Xls.open = function(file_path){
 //---------------------------------------------------------------------------//
 
 Book.save = function(){
-	var fos = new FileOutputStream(this.parent.path);
+	var fos = new java.io.FileOutputStream(this.parent.path);
 	this.r.write(fos);
 	fos.close();
 };
 
 Book.saveAs = function(path){
-	var fos = new FileOutputStream(path);
+	var fos = new java.io.FileOutputStream(path);
 	this.r.write(fos);
 	fos.close();
 };
