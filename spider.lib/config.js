@@ -17,7 +17,7 @@ outln('Load spider-form.js'); include('spider.lib/spider-form.js');
 outln('Load excel.js'); include('spider.lib/excel.js');
 outln('Load file.js'); include('spider.lib/file.js');
 outln('Load autokey.js'); include('spider.lib/autokey.js');
-outln('Load room.js'); include('spider.lib/room.js');
+//outln('Load room.js'); include('spider.lib/room.js');
 
 outln('----------------------------------\n');
 

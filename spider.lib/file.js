@@ -4,8 +4,10 @@ var dir = {
 	copyf:	null,		//copy a file
 	movef:	null,		//move a file
 	
-	writef: null,		// open a text file to write, return java.io.PrintWriter object 
-	readf: null,		// open a text file to read, return java.io.LineNumberReader object
+	writef: null,		// Obj: writef(path) open a text file to write, return java.io.PrintWriter object 
+	readf: null,		// Obj: readf(path) open a text file to read, return java.io.LineNumberReader object
+	readOnce: null,  // String: readOnce(path) read a file as a text
+	writeOnce: null,  // void: writeOnce(path, content) write a text to file path
 	
 	//mode set
 	path_mode: "full",	// "full" canonical path OR "relative" path OR "just_name"
@@ -85,7 +87,7 @@ dir.copyf = function (src, dest){
 			fdest = dt;		
 		}
 		
-		outln(fdest.getCanonicalPath());
+		//outln(fdest.getCanonicalPath());
 		java.nio.file.Files.copy(
 				sr.toPath(),
 				fdest.toPath()
@@ -124,22 +126,101 @@ dir.movef = function (src, dest){
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
- * open a text file to write
+ * open a text file to write with system default encode
  */
 dir.writef = function(path){
-	return java.io.PrintWriter(path);
+	return new java.io.PrintWriter(path);
 };
 
 /**
- * open a text file to read
+ * open a text file to write with encode
+ * encode = {"UTF-8"} , see in OutputStreamWriter
+ */
+dir.writef = function(path, encode){
+	var f = new java.io.FileOutputStream(path);
+	var chStream = new java.io.OutputStreamWriter(f, encode);
+	return new java.io.PrintWriter(chStream);
+};
+
+/**
+ * simple write a text file 
+ * encode = {"UTF-8"} , see in OutputStreamWriter
+ */
+dir.writeOnce = function(path, string){
+	var f = new java.io.FileOutputStream(path);
+	var chStream = new java.io.OutputStreamWriter(f, "UTF-8");
+	var prt = new java.io.PrintWriter(chStream);
+	prt.print(string);
+	prt.flush();
+	prt.close();
+	return true;
+};
+
+/**
+ * open a text file to read wi default encode
  */
 dir.readf = function(path){
-	return java.io.LineNumberReader(
+	return new java.io.LineNumberReader(
 		new java.io.InputStreamReader(
 			new java.io.FileInputStream(path)
 		)
 	);
 };
+
+/**
+ * open a text file to read
+ */
+dir.readf = function(path, encode){
+	return new java.io.LineNumberReader(
+		new java.io.InputStreamReader(
+			new java.io.FileInputStream(path)
+		)
+	);
+};
+
+
+/**
+ * read whole file as Text
+ * encode = {"UTF-8"} , see in OutputStreamWriter
+ */
+dir.readOnce = function(path, encode){
+	var content  ="";
+	var f= new java.io.LineNumberReader(
+		new java.io.InputStreamReader(
+			new java.io.FileInputStream(path), encode
+		)
+	);
+	var line = f.readLine();
+	while(line!=null){
+		content += line;
+		line = f.readLine();
+		if(line!=null) content += "\n";
+	}
+	f.close();
+	
+	return content;
+};
+
+/**
+ * read whole file as Text with encode utf-8
+ */
+dir.readOnce = function(path){
+	var content  ="";
+	var f= new java.io.LineNumberReader(
+		new java.io.InputStreamReader(
+			new java.io.FileInputStream(path), "UTF-8"
+		)
+	);
+	var line = f.readLine();
+	while(line!=null){
+		content += line;
+		line = f.readLine();
+		if(line!=null) content += "\n";
+	}
+	f.close();
+	return content;
+};
+
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
